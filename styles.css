@@ -1,0 +1,315 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&family=Sacramento&display=swap');
+
+:root {
+    --primary-pink: #ff85a2; /* Softer pink */
+    --secondary-pink: #ffb3c6; /* Lighter pink */
+    --accent-gold: #ffd700;
+    --light-lavender: #e6e6fa;
+    --sparkle-white: #fffafa;
+    --deep-purple: #4b0082; /* For contrast and night sky */
+    --text-color: #333;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, var(--light-lavender), var(--secondary-pink), #ffcad4, #fde2e4);
+    color: var(--text-color);
+    overflow-x: hidden; /* Prevent horizontal scroll from animations */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='%23FFD700' stroke='white' stroke-width='1'><path d='M12 2L9 9H2l7 5-2.5 8L12 17.5l5.5 4.5L15 14l7-5h-7z'/></svg>") 16 16, auto; /* Sparkle cursor */
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+    text-align: center;
+    position: relative; /* For positioning sparkles */
+    overflow: hidden; /* Keep sparkles contained */
+}
+
+h1, h2, h3 {
+    font-family: 'Great Vibes', cursive;
+    color: var(--primary-pink);
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+h1 {
+    font-size: 4em; /* Responsive later */
+    animation: fadeInDown 1.5s ease-out, pulseGlow 3s infinite alternate 1.5s;
+    letter-spacing: 2px;
+}
+
+h2 {
+    font-size: 2.8em;
+    animation: fadeIn 2s ease-out 0.5s;
+    animation-fill-mode: backwards; /* Start invisible */
+}
+
+h3 {
+    font-size: 2.2em;
+    animation: fadeIn 2s ease-out 1s;
+    animation-fill-mode: backwards;
+}
+
+p, li {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #555;
+    animation: fadeInUp 1.5s ease-out;
+    animation-fill-mode: backwards;
+}
+
+.intro p { animation-delay: 0.5s; }
+.qualities li { animation-delay: calc(0.8s + var(--delay-index) * 0.3s); }
+.message p { animation-delay: 1.5s; }
+.future p { animation-delay: 2s; }
+.closing p { animation-delay: 2.5s; }
+
+
+.sparkle-text {
+    background: linear-gradient(45deg, var(--accent-gold), var(--primary-pink), var(--deep-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    animation: animateGradientText 5s linear infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes animateGradientText {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes pulseGlow {
+    from { text-shadow: 1px 1px 2px rgba(0,0,0,0.1), 0 0 5px var(--secondary-pink), 0 0 10px var(--secondary-pink); }
+    to { text-shadow: 1px 1px 2px rgba(0,0,0,0.1), 0 0 20px var(--primary-pink), 0 0 30px var(--primary-pink); }
+}
+
+.star, .heart, .butterfly {
+    position: absolute;
+    pointer-events: none; /* So they don't interfere with text selection */
+    opacity: 0;
+    animation-duration: 5s; /* Base duration */
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+/* Stars */
+.star {
+    font-size: 20px; /* Base size */
+    color: var(--accent-gold);
+    animation-name: floatUp, twinkle;
+}
+
+.star::before { content: '✨'; } /* Use emoji for simplicity */
+
+@keyframes floatUp {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.5; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Hearts */
+.heart {
+    font-size: 25px;
+    color: var(--primary-pink);
+    animation-name: floatUp, pulseHeart;
+    animation-timing-function: ease-in-out;
+}
+.heart::before { content: '💖'; }
+
+@keyframes pulseHeart {
+     0%, 100% { transform: scale(1); }
+     50% { transform: scale(1.3); }
+}
+
+/* Butterflies */
+.butterfly {
+    font-size: 30px;
+    animation-name: flutter;
+    animation-duration: 7s;
+}
+/* Using multiple unicode butterflies for variety */
+.butterfly.b1::before { content: '🦋'; color: #4169e1; } /* Royal Blue */
+.butterfly.b2::before { content: '🌸'; color: var(--primary-pink); } /* It's a flower but can look like a pink butterfly */
+.butterfly.b3::before { content: '🦋'; filter: hue-rotate(90deg); } /* Greenish */
+
+
+@keyframes flutter {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    25% { transform: translate(50px, -30px) rotate(15deg); }
+    50% { transform: translate(-20px, 20px) rotate(-10deg); }
+    75% { transform: translate(30px, -50px) rotate(20deg); }
+    90% { opacity: 1; }
+    100% { transform: translate(0, -80vh) rotate(0deg); opacity: 0; }
+}
+
+.qualities ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.qualities li {
+    background: linear-gradient(135deg, var(--secondary-pink), var(--light-lavender));
+    padding: 10px 20px;
+    border-radius: 50px; /* Pill shape */
+    font-weight: 600;
+    color: var(--deep-purple);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0; /* For animation */
+}
+
+.qualities li:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+}
+
+.gallery-placeholder {
+    margin-top: 30px;
+    padding: 20px;
+    border: 2px dashed var(--primary-pink);
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+.gallery-placeholder p {
+    font-style: italic;
+    color: var(--primary-pink);
+}
+
+.glowing-button {
+    display: inline-block;
+    padding: 15px 30px;
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, var(--primary-pink), var(--accent-gold));
+    border: none;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 0 15px var(--primary-pink), 0 0 25px var(--accent-gold);
+    transition: all 0.3s ease;
+    animation: pulseButton 2s infinite, fadeInUp 2s ease-out 3s;
+    animation-fill-mode: backwards;
+    cursor: pointer; /* Make it clear it's clickable */
+}
+
+.glowing-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px var(--primary-pink), 0 0 40px var(--accent-gold);
+}
+
+@keyframes pulseButton {
+    0% { box-shadow: 0 0 15px var(--primary-pink), 0 0 25px var(--accent-gold); }
+    50% { box-shadow: 0 0 25px var(--primary-pink), 0 0 40px var(--accent-gold); }
+    100% { box-shadow: 0 0 15px var(--primary-pink), 0 0 25px var(--accent-gold); }
+}
+
+.final-message {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid var(--secondary-pink);
+}
+
+.final-message h2 {
+    font-family: 'Sacramento', cursive;
+    font-size: 3.5em;
+    color: var(--deep-purple);
+    text-shadow: 1px 1px var(--light-lavender), 2px 2px var(--secondary-pink);
+}
+
+/* Crown animation */
+.crown-container {
+    position: relative;
+    display: inline-block; /* To keep crown with text */
+    animation: fadeIn 2s ease-out 0.2s;
+    animation-fill-mode: backwards;
+}
+
+.crown {
+    position: absolute;
+    top: -60px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%) rotate(-15deg);
+    font-size: 4em; /* Adjust size */
+    opacity: 0;
+    animation: dropAndBob 2s ease-out 1s forwards, sparkleShine 1.5s infinite alternate 3s;
+}
+
+@keyframes dropAndBob {
+    0% { top: -100px; opacity: 0; transform: translateX(-50%) rotate(-45deg) scale(0.5); }
+    60% { top: -60px; opacity: 1; transform: translateX(-50%) rotate(-15deg) scale(1.1); }
+    80% { top: -65px; transform: translateX(-50%) rotate(-15deg) scale(0.95); }
+    100% { top: -60px; opacity: 1; transform: translateX(-50%) rotate(-15deg) scale(1); }
+}
+
+@keyframes sparkleShine {
+    from { filter: drop-shadow(0 0 3px gold); }
+    to { filter: drop-shadow(0 0 10px gold) drop-shadow(0 0 5px white); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    h1 { font-size: 3em; }
+    h2 { font-size: 2.2em; }
+    h3 { font-size: 1.8em; }
+    p, li { font-size: 1em; }
+    .qualities li { padding: 8px 15px; }
+    .glowing-button { padding: 12px 25px; font-size: 1em; }
+    .crown { font-size: 3em; top: -50px; }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 2.5em; }
+    h2 { font-size: 1.8em; }
+    h3 { font-size: 1.5em; }
+    .container { width: 95%; padding: 15px; }
+    .qualities ul { flex-direction: column; align-items: center; }
+    .qualities li { margin-bottom: 10px; }
+    .crown { font-size: 2.5em; top: -40px; }
+}
+
+/* Invisible scrollbar for a cleaner look, but still scrollable */
+body::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+} 
